@@ -1,0 +1,33 @@
+{
+  "name": "movie-app",
+  "version": "1.0.0",
+  "description": "Simple movie application directory using MERN (NestJS as Backend & NextJS as Frontend)",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnalexladra/movie-app.git"
+  },
+  "keywords": [
+    "full-stack",
+    "mern",
+    "react",
+    "prisma",
+    "argon",
+    "jwt",
+    "passport",
+    "typescript",
+    "postgresql",
+    "nestjs",
+    "and",
+    "nextjs"
+  ],
+  "author": "John Alex",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/johnalexladra/movie-app/issues"
+  },
+  "homepage": "https://github.com/johnalexladra/movie-app#readme"
+}
