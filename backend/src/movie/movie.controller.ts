@@ -1,34 +1,59 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { GetUser } from '../auth/decorator';
+import { JwtGuard } from '../auth/guard';
+import { CreateMovieDto, UpdateMovieDto } from './dto';
 import { MovieService } from './movie.service';
-import { CreateMovieDto } from './dto/create-movie.dto';
-import { UpdateMovieDto } from './dto/update-movie.dto';
 
-@Controller('movie')
+@UseGuards(JwtGuard)
+@Controller('movies')
 export class MovieController {
-  constructor(private readonly movieService: MovieService) {}
-
-  @Post()
-  create(@Body() createMovieDto: CreateMovieDto) {
-    return this.movieService.create(createMovieDto);
-  }
+  constructor(private movieService: MovieService) {}
 
   @Get()
-  findAll() {
-    return this.movieService.findAll();
+  getMovies(@GetUser('id') userId: number) {
+    return this.movieService.getMovies(userId);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.movieService.findOne(+id);
+  getMovieById(
+    @GetUser('id') userId: number,
+    @Param('id', ParseIntPipe) movieId: number,
+  ) {
+    return this.movieService.getMovieById(userId, movieId);
+  }
+
+  @Post()
+  createMovie(@GetUser('id') userId: number, @Body() dto: CreateMovieDto) {
+    return this.movieService.createMovie(userId, dto);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
-    return this.movieService.update(+id, updateMovieDto);
+  editMovie(
+    @GetUser('id') userId: number,
+    @Param('id', ParseIntPipe) movieId: number,
+    @Body() dto: UpdateMovieDto,
+  ) {
+    return this.movieService.editMovie(userId, movieId, dto);
   }
 
+  @HttpCode(HttpStatus.NO_CONTENT)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.movieService.remove(+id);
+  deleteMovie(
+    @GetUser('id') userId: number,
+    @Param('id', ParseIntPipe) movieId: number,
+  ) {
+    return this.movieService.deleteMovie(userId, movieId);
   }
 }

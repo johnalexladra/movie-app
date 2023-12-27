@@ -1,26 +1,70 @@
-import { Injectable } from '@nestjs/common';
-import { CreateMovieDto } from './dto/create-movie.dto';
-import { UpdateMovieDto } from './dto/update-movie.dto';
+import { ForbiddenException, Injectable } from '@nestjs/common';
+import { PrismaService } from '../prisma/prisma.service';
+import { CreateMovieDto, UpdateMovieDto } from './dto';
 
 @Injectable()
 export class MovieService {
-  create(createMovieDto: CreateMovieDto) {
-    return 'This action adds a new movie';
+  constructor(private prisma: PrismaService) {}
+
+  getMovies(userId: number) {
+    return this.prisma.movie.findMany({
+      where: {
+        userId,
+      },
+    });
   }
 
-  findAll() {
-    return `This action returns all movie`;
+  getMovieById(userId: number, movieId: number) {
+    return this.prisma.movie.findFirst({
+      where: {
+        id: movieId,
+        userId,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} movie`;
+  async createMovie(userId: number, dto: CreateMovieDto) {
+    const movie = await this.prisma.movie.create({
+      data: {
+        userId,
+        ...dto,
+      },
+    });
+    return movie;
   }
 
-  update(id: number, updateMovieDto: UpdateMovieDto) {
-    return `This action updates a #${id} movie`;
+  async editMovie(userId: number, movieId: number, dto: UpdateMovieDto) {
+    const movie = await this.prisma.movie.findUnique({
+      where: {
+        id: movieId,
+      },
+    });
+    if (!movie || movie.userId !== userId) {
+      throw new ForbiddenException('Access to resources denied');
+    }
+    return this.prisma.movie.update({
+      where: {
+        id: movieId,
+      },
+      data: {
+        ...dto,
+      },
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} movie`;
+  async deleteMovie(userId: number, movieId: number) {
+    const movie = await this.prisma.movie.findUnique({
+      where: {
+        id: movieId,
+      },
+    });
+    if (!movie || movie.userId !== userId) {
+      throw new ForbiddenException('Access to resources denied');
+    }
+    return this.prisma.movie.delete({
+      where: {
+        id: movieId,
+      },
+    });
   }
 }
