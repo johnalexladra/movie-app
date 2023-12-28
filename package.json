@@ -4,6 +4,13 @@
   "description": "Simple movie application directory using MERN (NestJS as Backend & NextJS as Frontend)",
   "main": "index.js",
   "scripts": {
+    "prisma:dev:deploy": "npm run prisma:dev:deploy",
+    "dev-server": "npm run start:dev --prefix backend",
+    "dev-client": "npm run start --prefix frontend",
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
+    "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend",
+    "start": "cd backend && node index.js",
     "test": "npm run test"
   },
   "repository": {
@@ -29,5 +36,8 @@
   "bugs": {
     "url": "https://github.com/johnalexladra/movie-app/issues"
   },
-  "homepage": "https://github.com/johnalexladra/movie-app#readme"
+  "homepage": "https://github.com/johnalexladra/movie-app#readme",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
