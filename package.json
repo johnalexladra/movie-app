@@ -4,13 +4,16 @@
   "description": "Simple movie application directory using MERN (NestJS as Backend & NextJS as Frontend)",
   "main": "index.js",
   "scripts": {
-    "prisma:dev:deploy": "npm run prisma:dev:deploy",
+    "prisma:dev:migrate": "npm run prisma:dev:migrate --prefix backend",
+    "prisma:dev:deploy": "npm run prisma:dev:deploy --prefix backend",
     "dev-server": "npm run start:dev --prefix backend",
-    "dev-client": "npm run start --prefix frontend",
+    "dev-client": "npm run dev --prefix frontend",
+    "start-server": "npm run start --prefix backend",
+    "start-client": "npm run start --prefix backend",
     "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
     "install-all": "npm install && npm install --prefix frontend && npm install --prefix backend",
     "build": "npm install --prefix frontend && npm run build --prefix frontend && npm install --prefix backend",
-    "start": "cd backend && node index.js",
+    "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
     "test": "npm run test"
   },
   "repository": {
