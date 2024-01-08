@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "favorite" ALTER COLUMN "popularity" SET DATA TYPE DECIMAL(65,30),
+ALTER COLUMN "vote_average" SET DATA TYPE DECIMAL(65,30);

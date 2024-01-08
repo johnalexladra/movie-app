@@ -17,12 +17,36 @@ model User {
 
   email     String @unique
   password  String
-  firstName String?
-  lastName  String?
+  name      String?
   
   movies    Movie[]
+  favorite  Favorite[]
 
   @@map("users")
+}
+
+model Favorite {
+  // id        Int @id @default(autoincrement())
+  id        Int @id @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  backdrop_path  String?
+  homepage       String?
+  // movieId        Int     @unique
+  original_title String?
+  popularity     Decimal @db.Decimal(10,3)
+  poster_path    String?
+  title          String?
+  name           String?
+  media_type     String?
+  vote_average   Decimal @db.Decimal(10,3)
+  vote_count     Int
+
+  userId Int
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("favorite")
 }
 
 model Movie {

@@ -1,10 +1,17 @@
-import { Controller, Get, Post, Body, Param, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body, Request, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
+import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
-import { AuthDto, UserAuthDto } from './dto';
+import { CreateUserDto } from '../user/dto';
+import { AuthDto } from './dto';
+
+import { RefreshJwtGuard } from './guard/refresh.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+  ) {}
 
   @Post('signup')
   signup(@Body() dto: AuthDto) {
@@ -17,8 +24,21 @@ export class AuthController {
     return this.authService.signin(dto);
   }
 
-  @Post('checkuser')
-  checkuser(@Body() dto: UserAuthDto) {
-    return this.authService.checkExist(dto);
+  @Post('register')
+  async registerUser(@Body() dto: CreateUserDto) {
+    return await this.userService.create(dto);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Post('login')
+  async login(@Body() dto: AuthDto) {
+    return await this.authService.login(dto);
+  }
+
+  @UseGuards(RefreshJwtGuard)
+  @Post('refresh')
+  async refreshToken(@Request() req) {
+    console.log('refreshed');
+    return await this.authService.refreshToken(req.user);
   }
 }
