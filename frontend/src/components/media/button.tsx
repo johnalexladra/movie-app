@@ -10,10 +10,6 @@ const MovieFavoriteButton = ({ media }: { media: Media }) => {
   const [isFavorite, setIsFavorite] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
 
-  if (!session) {
-    return null; 
-  }
-
   useEffect(() => {
     const fetchFavoriteStatus = async () => {
       if (session) {
@@ -35,7 +31,7 @@ const MovieFavoriteButton = ({ media }: { media: Media }) => {
       try {
         if (isFavorite) {
           // Remove from favorites
-          deleteMovie(+media.id, session?.backendTokens.accessToken ?? "");
+          await deleteMovie(+media.id, session?.backendTokens.accessToken ?? "");
           setIsFavorite(false);
         } else {
           // Add to favorites
@@ -65,6 +61,10 @@ const MovieFavoriteButton = ({ media }: { media: Media }) => {
       }
     }
   };
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <button onClick={handleToggleFavorite} disabled={isAdding} className="button-secondary">
