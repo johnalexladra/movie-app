@@ -1,4 +1,4 @@
-import { getRandomMedia, getTrending } from "@/lib/api";
+import { getRandomMedia, getTrending } from "@/services/movie-api";
 import MediaCarousel from "@/components/carousel/static";
 import MediaHero from "@/components/media/hero";
 

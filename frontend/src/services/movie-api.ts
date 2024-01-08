@@ -2,9 +2,7 @@ import "server-only";
 import axios from "axios";
 import { cache } from "react";
 
-export const apiUrl = "https://api.themoviedb.org/3";
-
-export const apiImgUrl = "https://image.tmdb.org/t/p";
+import { MOVIE_API_URL } from "@/constants";
 
 export const lists = {
   movie: <QueryItem[]>[
@@ -25,7 +23,7 @@ export const getListItem = (type: MediaType, query: Query) =>
   lists[type].find((item) => item.query === query);
 
 export const api = axios.create({
-  baseURL: apiUrl,
+  baseURL: MOVIE_API_URL,
   params: {
     api_key: process.env.TMDB_API_KEY,
   },

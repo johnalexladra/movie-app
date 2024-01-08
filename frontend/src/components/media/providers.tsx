@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getAvailableRegions, getProviders } from "@/lib/api";
+import { getAvailableRegions, getProviders } from "@/services/movie-api";
 import { PiQuestion } from "react-icons/pi";
 import RegionSelect from "../provider/select";
 import ProviderGrid from "../provider/grid";

@@ -1,4 +1,4 @@
-import { getMedia } from "@/lib/api";
+import { getMedia } from "@/services/movie-api";
 import MediaOverview from "@/components/media/overview";
 
 export const revalidate = 60 * 60 * 24; // 24 hours

@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="px-global text-white/40">
         <p>&copy; 2023 John Alex. All rights reserved</p>
 
-        <p className="flex items-center mt-4">
+        <p className="flex items-center mt-4 hidden">
           Made with
           <a
             href="https://nextjs.org/"
@@ -33,7 +33,7 @@ export default function Footer() {
           </a>
         </p>
 
-        <p className="flex items-center mt-2">
+        <p className="flex items-center mt-2 hidden">
           Data provided by{" "}
           <a
             href="https://www.themoviedb.org/"
@@ -49,7 +49,7 @@ export default function Footer() {
             />
           </a>
         </p>
-        <p className="mt-4 text-xs">
+        <p className="mt-4 text-xs hidden">
           This project uses the{" "}
           <a
             href="https://www.themoviedb.org/"
@@ -61,7 +61,7 @@ export default function Footer() {
           </a>{" "}
           but is not endorsed or certified by TMDB.
         </p>
-        <p className="text-xs">
+        <p className="text-xs hidden">
           Design based on{" "}
           <a
             href="https://github.com/jasonujmaalvis/vue-movies/"

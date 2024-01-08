@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getMedia } from "@/lib/api";
+import { getMedia } from "@/services/movie-api";
 import MediaCarousel from "@/components/carousel/static";
 import MediaHero from "@/components/media/hero";
 import MediaNavbar from "@/components/media/navbar";

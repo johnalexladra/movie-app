@@ -1,4 +1,4 @@
-import { getSearch } from "@/lib/api";
+import { getSearch } from "@/services/movie-api";
 import MediaGrid from "@/components/grid/static";
 import Pagination from "../pagination";
 

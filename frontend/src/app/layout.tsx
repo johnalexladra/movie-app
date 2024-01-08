@@ -4,13 +4,14 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import NextTopLoader from "nextjs-toploader";
 
+import Providers from "@/components/providers";
 export const metadata: Metadata = {
   title: "Movies",
   description:
     "Millions of movies, TV shows and people to discover. Explore now.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <Providers>
         <NextTopLoader color="#3b82f6" />
         <div>
           <header className="bg-zinc-950 border-t border-zinc-800 lg:border-r fixed bottom-0 lg:top-0 left-0 z-10 h-16 w-full lg:h-full lg:w-20">
@@ -28,6 +30,7 @@ export default function RootLayout({
             <Footer />
           </div>
         </div>
+        </Providers>
       </body>
     </html>
   );

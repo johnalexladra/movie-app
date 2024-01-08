@@ -1,5 +1,5 @@
 import Providers from "@/components/media/providers";
-import { getMedia } from "@/lib/api";
+import { getMedia } from "@/services/movie-api";
 
 export const revalidate = 60 * 60 * 24; // 24 hours
 export default async function DetailProviders({

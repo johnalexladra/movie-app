@@ -9,6 +9,7 @@ import { PiQuestion } from "react-icons/pi";
 import Image from "next/image";
 import MediaCarousel from "../carousel/static";
 import Link from "next/link";
+import Button from "./button";
 
 export default function MediaOverview({ media }: { media: Media }) {
   const type = media.name ? "tv" : "movie";
@@ -162,6 +163,9 @@ export default function MediaOverview({ media }: { media: Media }) {
                   )
                 : null
             )}
+          </div>
+          <div className="mt-8 max-w-3xl">
+            <Button media={media} />
           </div>
         </div>
       </div>

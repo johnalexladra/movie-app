@@ -1,4 +1,4 @@
-import { getMediaEpisodes } from "@/lib/api";
+import { getMediaEpisodes } from "@/services/movie-api";
 import EpisodeGrid from "../episode/grid";
 import EpisodeCard from "../episode/card";
 import SeasonSelect from "../episode/select";

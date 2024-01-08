@@ -1,6 +1,6 @@
 import MediaDynamicCarousel from "@/components/carousel/dynamic";
 import MediaHero from "@/components/media/hero";
-import { getRandomMedia, getTrending, lists } from "@/lib/api";
+import { getRandomMedia, getTrending, lists } from "@/services/movie-api";
 
 export const revalidate = 60 * 60 * 24; // 24 hours
 export default async function Type({

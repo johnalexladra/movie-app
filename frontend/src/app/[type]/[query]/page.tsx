@@ -1,5 +1,5 @@
 import MediaDynamicGrid from "@/components/grid/dynamic";
-import { lists } from "@/lib/api";
+import { lists } from "@/services/movie-api";
 
 export const revalidate = 60 * 60 * 24; // 24 hours
 export default function QueryPage({

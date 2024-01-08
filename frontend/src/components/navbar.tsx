@@ -9,15 +9,27 @@ import {
   PiTelevisionFill,
   PiMagnifyingGlass,
   PiMagnifyingGlassFill,
+  PiSignIn,
+  PiSignOut,
 } from "react-icons/pi";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export default function Navbar() {
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+  const { data: session } = useSession();
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsUserLoggedIn(session ? true : false);
+  }, [session]);
+
   const LINKS = [
     {
-      name: "Home",
-      href: "/",
+      name: isUserLoggedIn ? "Dashboard" : "Home",
+      href: isUserLoggedIn ? "/dashboard" : "/",
       icon: <PiHouse className="w-6 h-6" />,
       iconActive: <PiHouseFill className="w-6 h-6 text-blue-500" />,
     },
@@ -39,9 +51,13 @@ export default function Navbar() {
       icon: <PiMagnifyingGlass className="w-6 h-6" />,
       iconActive: <PiMagnifyingGlassFill className="w-6 h-6 text-blue-500" />,
     },
+    {
+      name: isUserLoggedIn ? "Sign Out" : "Sign In",
+      href: isUserLoggedIn ? "/api/auth/signout" : "/api/auth/signin",
+      icon: isUserLoggedIn ? <PiSignOut className="w-6 h-6" /> : <PiSignIn className="w-6 h-6" />,
+      iconActive: isUserLoggedIn ? <PiSignOut className="w-6 h-6 text-blue-500" /> : <PiSignIn className="w-6 h-6 text-blue-500" />,
+    },
   ];
-
-  const pathname = usePathname();
 
   return (
     <nav className="flex items-center justify-evenly h-full lg:flex-col lg:justify-start">

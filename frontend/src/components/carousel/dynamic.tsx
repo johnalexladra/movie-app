@@ -1,4 +1,4 @@
-import { getQuery } from "@/lib/api";
+import { getQuery } from "@/services/movie-api";
 import MediaCarouselBase from "./_base";
 import MediaCarouselItems from "./_items";
 

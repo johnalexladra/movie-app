@@ -1,4 +1,4 @@
-import { getPerson } from "@/lib/api";
+import { getPerson } from "@/services/movie-api";
 import PersonDetails from "@/components/person/details";
 import PersonHero from "@/components/person/hero";
 

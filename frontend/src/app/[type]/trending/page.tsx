@@ -1,6 +1,6 @@
 import MediaGrid from "@/components/grid/static";
 import Pagination from "@/components/pagination";
-import { getTrending } from "@/lib/api";
+import { getTrending } from "@/services/movie-api";
 
 export const revalidate = 60 * 60 * 24; // 24 hours
 export default async function QueryPage({

@@ -1,4 +1,4 @@
-import { getQuery } from "@/lib/api";
+import { getQuery } from "@/services/movie-api";
 import MediaCard from "../media/card";
 import MediaGrid from "./_base";
 import Pagination from "../pagination";

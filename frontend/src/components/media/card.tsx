@@ -29,7 +29,7 @@ export default function MediaCard({ media }: { media: Media }) {
         <div className="flex items-center space-x-2 mt-2">
           <Rating average={media.vote_average} />
           <span className="text-xs text-white/60 font-medium">
-            {media.vote_average.toFixed(1)}
+            {Number(media.vote_average).toFixed(1)}
           </span>
         </div>
       </div>
