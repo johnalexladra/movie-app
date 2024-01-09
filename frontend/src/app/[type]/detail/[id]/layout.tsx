@@ -22,7 +22,7 @@ export default async function DetailLayout({
       <div>
         <MediaNavbar media={data} />
 
-        <div className="my-6 lg:my-0">
+        <div className="my-6 lg:my-10">
           <Suspense
             fallback={
               <div className="h-96 flex items-center justify-center text-4xl">
