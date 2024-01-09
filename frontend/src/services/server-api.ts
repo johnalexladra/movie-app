@@ -29,6 +29,19 @@ export async function checkUser(email: string) {
   return res;
 }
 
+export async function getUsers(token: string) {
+  const res = await axios.get(`${SERVER_URL}/user/all`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  });
+  return res.data;
+}
+
+export async function deleteUser(id: string) {
+
+}
+
 export async function getMovies(token: string) {
   const res = await axios.get(`${SERVER_URL}/favorite`, {
     headers: {
