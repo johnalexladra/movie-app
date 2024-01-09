@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PiQuestion } from "react-icons/pi";
+import { PiBookmarkSimple, PiBookmarkSimpleFill, PiQuestion } from "react-icons/pi";
 import Rating from "./rating";
 
 export default function MediaCard({ media }: { media: Media }) {
@@ -26,11 +26,12 @@ export default function MediaCard({ media }: { media: Media }) {
       </div>
       <div className="mt-2">
         <h3 className="truncate">{media.name || media.title}</h3>
-        <div className="flex items-center space-x-2 mt-2">
+        <div className="relative flex items-center space-x-2 mt-2">
           <Rating average={media.vote_average} />
           <span className="text-xs text-white/60 font-medium">
             {Number(media.vote_average).toFixed(1)}
           </span>
+          <PiBookmarkSimple className="absolute inset-y-0 right-1" />
         </div>
       </div>
     </Link>

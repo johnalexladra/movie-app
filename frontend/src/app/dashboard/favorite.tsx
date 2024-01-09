@@ -2,34 +2,37 @@
 
 import MediaCarousel from "@/components/carousel/static";
 import { getFavoriteByType } from "@/services/server-api";
-import { redirect } from "next/navigation";
 import { useEffect, useState } from 'react';
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { setFavoriteMovies, setFavoriteSeries } from "@/redux/features/favoriteSlice";
+// import useFavorites from "@/hooks/useFavorites"; // 
 
 export const revalidate = 60 * 60 * 24; // 24 hours
 export default function Favorites() {
-  const [favoriteMovies, setFavoriteMovies] = useState([]);
-  const [favoriteSeries, setFavoriteSeries] = useState([]);
+  const favoriteMovies = useSelector((state: RootState) => state.favorites.movies);
+  const favoriteSeries = useSelector((state: RootState) => state.favorites.series);
   const { data: session } = useSession();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchData = async () => {
       if (session) {
-        const movies = await getFavoriteByType("movie", session?.backendTokens.accessToken as string);
-        const series = await getFavoriteByType("tv", session?.backendTokens.accessToken as string);
-        setFavoriteMovies(movies || []);
-        setFavoriteSeries(series || []);
+        const movies = await getFavoriteByType('movie', session?.backendTokens.accessToken as string);
+        const series = await getFavoriteByType('tv', session?.backendTokens.accessToken as string);
+        dispatch(setFavoriteMovies(movies || []));
+        dispatch(setFavoriteSeries(series || []));
       }
     };
 
     fetchData();
-  }, [session]); 
+  }, [session, dispatch]);
 
-  const handleRedirectHome = () => {
-    redirect('/');
-  };
+  // or use useFavorites hook
 
+  // const { favoriteMovies, favoriteSeries } = useFavorites();
 
   return (
     <main>

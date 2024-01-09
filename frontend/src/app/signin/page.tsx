@@ -2,19 +2,18 @@
 import { signIn } from "next-auth/react";
 import { ChangeEvent, FormEvent, useState } from "react";
 import { PiGithubLogo, PiGoogleLogo } from "react-icons/pi";
+import { useSession } from 'next-auth/react';
+import { redirect } from "next/navigation";
+import { toast } from 'react-hot-toast';
 
-type LoginInput = {
-  email: string;
-  password: string;
-}
-
-type PageProps = {
-  searchParams: { error?: string }
-}
-
-export default function LoginPage({searchParams}: PageProps) {
-  const [inputs, setInputs] = useState<LoginInput>({ email: "", password: "" });
+export default function SignIn({searchParams}: PageProps) {
+  const [inputs, setInputs] = useState<LoginData>({ email: "", password: "" });
   const [rememberMe, setRememberMe] = useState(false);
+  const { data: session } = useSession();
+
+  if (session) {
+    redirect('/dashboard');
+  }
 
   const handleRememberMeChange = (e: any) => {
     setRememberMe(e.target.checked);
@@ -28,21 +27,37 @@ export default function LoginPage({searchParams}: PageProps) {
 
   const handleSubmit = async (event:FormEvent) => {
     event.preventDefault();
-    await signIn("credentials", { 
-      email: inputs.email, 
-      password: inputs.password, 
-      callbackUrl: '/' });
+    try {
+      const test = await signIn("credentials", {
+        email: inputs.email,
+        password: inputs.password,
+        callbackUrl: 'http://localhost:3000/dashboard',
+        redirect: false,
+      });
+
+      if(test?.error) {
+        toast.error('Sign-in failed. Please check your credentials.');
+      } else {
+        //// Show success toast
+        toast.success('Sign-in successful!');
+      }
+    } catch (error:any) {
+      // Show error toast
+      if (error.response && error.response.status === 401) {
+        // Handle 401 Unauthorized error
+        // You might want to show a different error message or redirect to a login page
+        toast.error('Invalid credentials. Please try again.');
+        // Or redirect to a login page
+        // window.location.href = 'http://localhost:3000/login';
+      } else {
+        // Handle other errors
+        toast.error('Sign-in failed. Please check your credentials.');
+      }
+    }
   }
   return (
-
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight hidden">
-            Sign in to your account
-          </h2>
-        </div>
-
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-8 lg:px-8">
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           {/* Email and Password Form */}
           <form className="space-y-6" onSubmit={handleSubmit}>
@@ -59,7 +74,7 @@ export default function LoginPage({searchParams}: PageProps) {
                   required
                   value={inputs.email || ""}
                   onChange={handleChange}
-                  className="block w-full rounded-md border-0 px-3 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="flex w-full justify-center input-text bg-transparent"
                 />
               </div>
             </div>
@@ -84,7 +99,7 @@ export default function LoginPage({searchParams}: PageProps) {
                   required
                   value={inputs.password || ""}
                   onChange={handleChange}
-                  className="block w-full rounded-md border-0 px-3 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="flex w-full justify-center input-text bg-transparent"
                 />
               </div>
             </div>
@@ -104,7 +119,7 @@ export default function LoginPage({searchParams}: PageProps) {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center button-secondary bg-gray-600"
               >
                 Sign in
               </button>
@@ -130,9 +145,9 @@ export default function LoginPage({searchParams}: PageProps) {
           </button>
         </div>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-8 text-center text-sm text-gray-500">
             Not a member?{' '}
-            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+            <a href="/signup" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
               Sign Up
             </a>
           </p>

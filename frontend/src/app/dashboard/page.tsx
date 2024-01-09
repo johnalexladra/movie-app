@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/services/next-auth";
 import { redirect } from "next/navigation";
 import Favorites from "./favorite";
+import Watch from "./watch";
 
 export const revalidate = 60 * 60 * 24; // 24 hours
 export default async function Dashboard() {
@@ -26,7 +27,9 @@ export default async function Dashboard() {
   return (
     <main>
       <MediaHero media={randomItem} />
+      <h2 className="text-3xl font-bold m-8">Hi! { session.user.firstName }, welcome back.</h2>  
       <Favorites />
+      <Watch />
     </main>
   );
 }

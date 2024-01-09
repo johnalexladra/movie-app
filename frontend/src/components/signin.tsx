@@ -8,7 +8,7 @@ const SignInButton = () => {
   if (session && session.user)
     return (
       <div className="flex gap-4 ml-auto">
-        <p className="text-sky-600">{session.user.name}</p>
+        <p className="text-sky-600">{session.user.firstName}</p>
         <Link
           href={"/api/auth/signout"}
           className="flex gap-4 ml-auto text-red-600"
@@ -21,7 +21,7 @@ const SignInButton = () => {
   return (
     <div className="flex gap-4 ml-auto items-center">
       <Link
-        href={"/api/auth/signin"}
+        href={"/signin"}
         className="flex gap-4 ml-auto text-green-600"
       >
         Sign In

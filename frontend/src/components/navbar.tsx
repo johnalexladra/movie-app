@@ -30,8 +30,8 @@ export default function Navbar() {
     {
       name: isUserLoggedIn ? "Dashboard" : "Home",
       href: isUserLoggedIn ? "/dashboard" : "/",
-      icon: <PiHouse className="w-6 h-6" />,
-      iconActive: <PiHouseFill className="w-6 h-6 text-blue-500" />,
+      icon: isUserLoggedIn ? <PiHouseFill className="w-6 h-6" /> : <PiHouse className="w-6 h-6" />,
+      iconActive: isUserLoggedIn ? <PiHouseFill className="w-6 h-6 text-blue-500" /> : <PiHouse className="w-6 h-6 text-blue-500" />,
     },
     {
       name: "Movies",
@@ -53,24 +53,24 @@ export default function Navbar() {
     },
     {
       name: isUserLoggedIn ? "Sign Out" : "Sign In",
-      href: isUserLoggedIn ? "/api/auth/signout" : "/api/auth/signin",
-      icon: isUserLoggedIn ? <PiSignOut className="w-6 h-6" /> : <PiSignIn className="w-6 h-6" />,
+      href: isUserLoggedIn ? "/api/auth/signout" : "/signin",
+      icon: isUserLoggedIn ? <PiSignOut className="w-6 h-6" /> : <PiSignIn className="w-6 h-6"/>,
       iconActive: isUserLoggedIn ? <PiSignOut className="w-6 h-6 text-blue-500" /> : <PiSignIn className="w-6 h-6 text-blue-500" />,
     },
   ];
 
   return (
-    <nav className="flex items-center justify-evenly h-full lg:flex-col lg:justify-start">
-      {LINKS.map((link) => (
+    <nav className="flex items-center justify-evenly h-full lg:flex-col lg:justify-start sm:flex-row lg:items-start">
+      {LINKS.map((link, index) => (
         <Link
           key={link.name}
           href={link.href}
-          className="h-full w-full inline-flex items-center justify-center lg:h-24"
+          className={`h-full w-full inline-flex items-center justify-center lg:h-24 ${index === LINKS.length - 1 ? 'lg:absolute lg:bottom-6' : ''}`}
         >
           <span className="sr-only">{link.name}</span>
           {pathname === link.href ? link.iconActive : link.icon}
         </Link>
       ))}
     </nav>
-  );
+  )
 }

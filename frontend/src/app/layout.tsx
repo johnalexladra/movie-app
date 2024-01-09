@@ -6,6 +6,9 @@ import NextTopLoader from "nextjs-toploader";
 
 import NextAuthProvider from "@/components/providers";
 import ReduxProvider from "@/redux/provider";
+
+import { Toaster } from "react-hot-toast";
+
 export const metadata: Metadata = {
   title: "Movies",
   description:
@@ -23,6 +26,7 @@ export default async function RootLayout({
         <ReduxProvider>
         <NextAuthProvider>
         <NextTopLoader color="#3b82f6" />
+        <Toaster position="top-center" />
         <div>
           <header className="bg-zinc-950 border-t border-zinc-800 lg:border-r fixed bottom-0 lg:top-0 left-0 z-10 h-16 w-full lg:h-full lg:w-20">
             <Navbar />
