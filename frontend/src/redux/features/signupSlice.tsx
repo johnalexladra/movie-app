@@ -2,8 +2,16 @@
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const userSlice = createSlice({
-  name: 'user',
+interface UserState {
+  data: UserData | null;
+}
+
+const initialState: UserState = {
+  data: null,
+};
+
+const signupSlice = createSlice({
+  name: 'signup',
   initialState,
   reducers: {
     setUser: (state, action: PayloadAction<UserData>) => {
@@ -15,5 +23,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { setUser, resetUser } = userSlice.actions;
-export default userSlice.reducer;
+export const { setUser, resetUser } = signupSlice.actions;
+export default signupSlice.reducer;

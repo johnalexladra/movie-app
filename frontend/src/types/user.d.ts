@@ -13,11 +13,3 @@
 //   firstName: string;
 //   lastName: string;
 // }
-
-interface UserState {
-  data: UserData | null;
-}
-
-const initialState: UserState = {
-  data: null,
-};
