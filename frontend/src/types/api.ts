@@ -22,7 +22,8 @@ interface LoginData{
 }
 
 interface UserData extends LoginData {
-  name: string;
+  firstName: string;
+  lastName: string;
 }
 
 interface ApiMovieData {

@@ -1,7 +1,23 @@
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  // role?: string | null;
-  accessToken?: string | null;
+// interface User {
+//   id: string;
+//   firstName: string;
+//   lastName: string;
+//   email: string;
+//   // role?: string | null;
+//   accessToken?: string | null;
+// };
+
+// interface UserData {
+//   email: string;
+//   password: string;
+//   firstName: string;
+//   lastName: string;
+// }
+
+interface UserState {
+  data: UserData | null;
+}
+
+const initialState: UserState = {
+  data: null,
 };
