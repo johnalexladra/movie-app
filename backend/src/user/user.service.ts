@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ForbiddenException, ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -43,7 +43,12 @@ export class UserService {
     });
   }
 
-
+  async getUsers(role: string) {
+    if (!role || role !== 'admin') {
+      throw new ForbiddenException('Access to resources denied');
+    }
+    return await this.prisma.user.findMany();
+  }
 
   async update(userId: number, dto: UpdateUserDto) {
     const user = await this.prisma.user.update({

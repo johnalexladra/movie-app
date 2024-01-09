@@ -16,6 +16,11 @@ export class UserController {
   }
 
   @UseGuards(JwtGuard)
+  @Get('all') 
+  async getUsers(@GetUser('role') role: string) {
+    return await this.userService.getUsers(role)
+  }
+
   @Get(':id')
   async getUserProfile(@Param('id') id: number) {
     return await this.userService.findById(id);
