@@ -44,4 +44,8 @@
   .button-secondary {
     @apply px-5 py-3 border border-zinc-800/60 flex items-center gap-4 transition select-none hover:bg-zinc-800/60;
   }
+
+  .input-text {
+    @apply px-5 py-3 border border-zinc-800/60 flex items-center gap-4 transition select-none hover:bg-zinc-800/60;
+  }
 }
