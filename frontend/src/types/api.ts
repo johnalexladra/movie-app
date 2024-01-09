@@ -1,4 +1,4 @@
-export interface ServerErrorResponse {
+interface ServerErrorResponse {
   response: {
     data: {
       statusCode: number | string;
@@ -7,7 +7,7 @@ export interface ServerErrorResponse {
   };
 }
 
-export interface DbServerErrorResponse {
+interface DbServerErrorResponse {
   response: {
     status: number | string;
     data: {
@@ -16,16 +16,16 @@ export interface DbServerErrorResponse {
   };
 }
 
-export interface LoginData{
+interface LoginData{
   email: string;
   password: string;
 }
 
-export interface UserData extends LoginData {
+interface UserData extends LoginData {
   name: string;
 }
 
-export interface ApiMovieData {
+interface ApiMovieData {
   backdrop_path  :string;
   homepage       :string;
   id             :number;
@@ -39,22 +39,22 @@ export interface ApiMovieData {
   vote_count     :number;
 }
 
-export interface MovieData extends ApiMovieData {
+interface MovieData extends ApiMovieData {
   id: number;
 }
 
-export interface LoginResponse {
+interface LoginResponse {
   access_token: string;
 }
 
-export interface DbMovieLoaderData {
+interface DbMovieLoaderData {
   id: number;
   original_title: string;
   release_date: string;
   vote_average: number;
 }
 
-export interface DbMovieCardLoaderData {
+interface DbMovieCardLoaderData {
   title: string;
   overview: string;
   homepage: string;
@@ -62,4 +62,8 @@ export interface DbMovieCardLoaderData {
   genres: {
       name: string;
   }[];
+}
+
+interface PageProps {
+  searchParams: { error?: string }
 }
