@@ -2,7 +2,6 @@
 
 import { createMovie, deleteMovie, getMovieById } from "@/services/server-api";
 import { useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
 import { useState, useEffect } from 'react';
 
 const MovieFavoriteButton = ({ media }: { media: Media }) => {
