@@ -33,8 +33,13 @@ export async function getUsers(token: string) {
   return res.data;
 }
 
-export async function deleteUser(id: string) {
-
+export async function deleteUser(email: string, token: string) {
+  const res = await axios.delete(`${SERVER_URL}/user?email=${email}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  });
+  return res.data;
 }
 
 export async function getMovies(token: string) {
