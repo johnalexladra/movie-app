@@ -16,14 +16,22 @@ export default function Favorites() {
   const favoriteSeries = useSelector((state: RootState) => state.favorites.series);
   const { data: session } = useSession();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       if (session) {
-        const movies = await getFavoriteByType('movie', session?.backendTokens.accessToken as string);
-        const series = await getFavoriteByType('tv', session?.backendTokens.accessToken as string);
-        dispatch(setFavoriteMovies(movies || []));
-        dispatch(setFavoriteSeries(series || []));
+        try {
+          setLoading(true);
+          const movies = await getFavoriteByType('movie', session?.backendTokens.accessToken as string);
+          const series = await getFavoriteByType('tv', session?.backendTokens.accessToken as string);
+          dispatch(setFavoriteMovies(movies || []));
+          dispatch(setFavoriteSeries(series || []));
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        } finally {
+          setLoading(false);
+        }
       }
     };
 
@@ -36,28 +44,35 @@ export default function Favorites() {
 
   return (
     <main>
-      {(favoriteMovies.length > 0) || (favoriteSeries.length > 0) ? (
-      <div className="my-global space-y-5">
-        {favoriteMovies && favoriteMovies.length > 0 && (
-          <MediaCarousel
-            title="My Favorite Movies"
-            link="/movie/trending"
-            items={favoriteMovies}
-          />
-        )}
-        {favoriteSeries && favoriteSeries.length > 0 && (
-          <MediaCarousel
-            title="My Favorite TV Shows"
-            link="/tv/trending"
-            items={favoriteSeries}
-          />
-        )}
-      </div>
-      ):(
-        <div className="flex items-center justify-between flex-col py-8">
-          <h2 className="mb-8">No favorite saved</h2>
-          <Link className="button-secondary" href={'/'}>Go to Home</Link>
+      {loading ? (
+        // Show preloader while data is being fetched
+        <div className="my-global space-y-5">Loading...</div>
+      ) : (
+        <>
+        {(favoriteMovies.length > 0) || (favoriteSeries.length > 0) ? (
+        <div className="my-global space-y-5">
+          {favoriteMovies && favoriteMovies.length > 0 && (
+            <MediaCarousel
+              title="My Favorite Movies"
+              link="/movie/trending"
+              items={favoriteMovies}
+            />
+          )}
+          {favoriteSeries && favoriteSeries.length > 0 && (
+            <MediaCarousel
+              title="My Favorite TV Shows"
+              link="/tv/trending"
+              items={favoriteSeries}
+            />
+          )}
         </div>
+        ):(
+          <div className="flex items-center justify-between flex-col py-8">
+            <h2 className="mb-8">No favorite saved</h2>
+            <Link className="button-secondary" href={'/'}>Go to Home</Link>
+          </div>
+        )}
+        </>
       )}
     </main>
   );

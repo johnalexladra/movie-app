@@ -43,9 +43,10 @@ export default function Watch() {
         )}
       </div>
       ):(
-        <div className="flex items-center justify-between flex-col py-8">
-          <h2 className="mb-8">No watch later added</h2>
-        </div>
+        <></>
+        // <div className="flex items-center justify-between flex-col py-8">
+        //   <h2 className="mb-8">No watch later added</h2>
+        // </div>
       )}
     </main>
   );
