@@ -6,6 +6,7 @@ import favoritesReducer from './features/favoriteSlice';
 import watchButtonReducer from './features/watchButtonSlice';
 import watchReducer from './features/watchSlice';
 import signupReducer from './features/signupSlice';
+import userReducer from './features/userSlice';
 
 const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const store = configureStore({
     watchButton: watchButtonReducer,
     watch: watchReducer,
     signup: signupReducer,
+    user: userReducer,
   },
 });
 
