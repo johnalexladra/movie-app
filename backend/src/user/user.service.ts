@@ -63,4 +63,20 @@ export class UserService {
     return user;
   }
 
+  async deleteUser(role: string, email: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: email,
+      },
+    });
+    if (role !== "admin") {
+      throw new ForbiddenException('Access to resources denied');
+    }
+    return this.prisma.user.delete({
+      where: {
+        email: user.email,
+      },
+    });
+  }
+
 }
